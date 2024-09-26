@@ -17,25 +17,15 @@ export function ThemeSwitcher() {
   if (!mounted) return null;
 
   return (
-    <div className="text-lg text-purple-400 gap-4 flex">
-      The current theme is: {theme}
+    <div>
       <Button
-        onClick={() => setTheme("light")}
+        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         isIconOnly
         color="warning"
         variant="faded"
         aria-label="Light Mode"
       >
-        <SunMoon />
-      </Button>
-      <Button
-        onClick={() => setTheme("dark")}
-        isIconOnly
-        color="secondary"
-        variant="faded"
-        aria-label="Dark Mode"
-      >
-        <Moon />
+        {theme === "light" ? <Moon size={30} /> : <SunMoon size={30} />}
       </Button>
     </div>
   );
