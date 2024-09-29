@@ -65,6 +65,47 @@
   dependencies:
     csstype "3.1.1"
 
+"@cloudinary-util/types@1.5.8":
+  version "1.5.8"
+  resolved "https://registry.npmmirror.com/@cloudinary-util/types/-/types-1.5.8.tgz#8591d046c5392249648b64dd4d47e8804fad5cf2"
+  integrity sha512-gD6n1mPLvqQ/0GXx0DwXk6dud1X2ij/XGzX7uz+X3AObvCAEngdBXgStuz9O8PmnlAiQvhulvwwWZVXHvgpjJg==
+
+"@cloudinary-util/url-loader@5.10.3":
+  version "5.10.3"
+  resolved "https://registry.npmmirror.com/@cloudinary-util/url-loader/-/url-loader-5.10.3.tgz#215bb679ecb2b90f6245348da756908cbc12c236"
+  integrity sha512-bKALWnD2HHL/OZlIQECdjFrGvZYu9VG+RG9pne1y9OVhdClSNS3CZKKSf4F+htcYSp8JXpjdKUzTp2t21b6kiA==
+  dependencies:
+    "@cloudinary-util/types" "1.5.8"
+    "@cloudinary-util/util" "3.3.2"
+    "@cloudinary/url-gen" "1.15.0"
+    zod "^3.22.4"
+
+"@cloudinary-util/util@3.3.2", "@cloudinary-util/util@^3.3.2":
+  version "3.3.2"
+  resolved "https://registry.npmmirror.com/@cloudinary-util/util/-/util-3.3.2.tgz#a5cd48d82d5f344008674ebad99767e997bea222"
+  integrity sha512-Cc0iFxzfl7fcOXuznpeZFGYC885Of/vDgccRDnhTe/8Rf8YKv2PjLtezyo0VgmdA/CpeZy29NCXAsf6liokbwg==
+
+"@cloudinary/transformation-builder-sdk@^1.10.0", "@cloudinary/transformation-builder-sdk@^1.15.1":
+  version "1.15.1"
+  resolved "https://registry.npmmirror.com/@cloudinary/transformation-builder-sdk/-/transformation-builder-sdk-1.15.1.tgz#3fc6c27cbdf1524df8df2aeb81a8f9e9b8b88457"
+  integrity sha512-Dvm5DzGPq6NtXRLhpubu7SVfD+TLEWbU9q/FOxpGelWpn3NaTSOH/b+jRbpTL+EgYSHeaTeK6kHMraousPkNQg==
+  dependencies:
+    "@cloudinary/url-gen" "^1.7.0"
+
+"@cloudinary/url-gen@1.15.0":
+  version "1.15.0"
+  resolved "https://registry.npmmirror.com/@cloudinary/url-gen/-/url-gen-1.15.0.tgz#a55c9b51cb27301e0bdc4d60e44a7e73d13db103"
+  integrity sha512-bjU67eZxLUgoRy/Plli4TQio7q6P31OYqnEgXxeN9TKXrzr6h0DeEdIUhKI9gy3HkEBWXWWJIPh7j7gkOJPnyA==
+  dependencies:
+    "@cloudinary/transformation-builder-sdk" "^1.10.0"
+
+"@cloudinary/url-gen@^1.7.0":
+  version "1.21.0"
+  resolved "https://registry.npmmirror.com/@cloudinary/url-gen/-/url-gen-1.21.0.tgz#89cd0ecf60ce370f067d14394d062b4def3eef0f"
+  integrity sha512-ctYcCzX3G3vcgnESTU2ET3K1XsBiXcEnBddCGV0QbR3fJhLLrIShjSMEwZoepgh4LAFOHJu9DzvLFr+E8R7c7g==
+  dependencies:
+    "@cloudinary/transformation-builder-sdk" "^1.15.1"
+
 "@eslint-community/eslint-utils@^4.2.0", "@eslint-community/eslint-utils@^4.4.0":
   version "4.4.0"
   resolved "https://registry.npmmirror.com/@eslint-community/eslint-utils/-/eslint-utils-4.4.0.tgz#a23514e8fb9af1269d5f7788aa556798d61c6b59"
@@ -2630,6 +2671,11 @@
   dependencies:
     tslib "^2.4.0"
 
+"@tsconfig/recommended@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.npmmirror.com/@tsconfig/recommended/-/recommended-1.0.7.tgz#fdd95fc2c8d643c8b4a8ca45fd68eea248512407"
+  integrity sha512-xiNMgCuoy4mCL4JTywk9XFs5xpRUcKxtWEcMR6FNMtsgewYTIgIR+nvlP4A4iRCAzRsHMnPhvTRrzp4AGcRTEA==
+
 "@types/json5@^0.0.29":
   version "0.0.29"
   resolved "https://registry.npmmirror.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
@@ -4444,6 +4490,16 @@ natural-compare@^1.4.0:
   resolved "https://registry.npmmirror.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
+next-cloudinary@^6.13.0:
+  version "6.13.0"
+  resolved "https://registry.npmmirror.com/next-cloudinary/-/next-cloudinary-6.13.0.tgz#31646602f01ee10916324e6eab4c00be93b15e09"
+  integrity sha512-jaClAJb9P3PMkN9x6Y08NVFNTYUl1KmhvIYReG+sCVaHPuMFgIkQzLTBpinmuQznAdHnpHzSmNpt2o6bcFugQQ==
+  dependencies:
+    "@cloudinary-util/types" "1.5.8"
+    "@cloudinary-util/url-loader" "5.10.3"
+    "@cloudinary-util/util" "^3.3.2"
+    "@tsconfig/recommended" "^1.0.7"
+
 next-themes@^0.3.0:
   version "0.3.0"
   resolved "https://registry.npmmirror.com/next-themes/-/next-themes-0.3.0.tgz#b4d2a866137a67d42564b07f3a3e720e2ff3871a"
@@ -5537,3 +5593,8 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmmirror.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+zod@^3.22.4:
+  version "3.23.8"
+  resolved "https://registry.npmmirror.com/zod/-/zod-3.23.8.tgz#e37b957b5d52079769fb8097099b592f0ef4067d"
+  integrity sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==
