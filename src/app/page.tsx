@@ -21,6 +21,7 @@ import { CldUploadButton } from "next-cloudinary";
 import { Topic } from "@/util/type";
 import Topics from "./components/Topics";
 
+
 export default function Home() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [content, setContent] = useState("");
@@ -32,6 +33,8 @@ export default function Home() {
 
   const { userId } = useAuth();
   const avatar = useUser().user?.imageUrl;
+
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,7 +63,7 @@ export default function Home() {
       </header>
       <div className="flex justify-center items-center m-4">
         <main className="flex flex-col items-center justify-center w-full border-x-2 sm:w-full md:w-9/12 lg:w-6/12">
-          <Divider className="my-5" />
+          <Divider className="my-5" />          
           {topics &&
             topics.map((item) => {
               return <Topics {...item} key={item.id} />;
