@@ -1,11 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
+
 interface UserRequest {
   userId: string;
 }
 
 const prisma = new PrismaClient();
+
+
 
 export async function POST(request: NextRequest) {
   try {

@@ -1,21 +1,19 @@
 "use client";
 
-import { Record } from "@/util/type";
-import { useAuth } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import {
   Card,
   CardHeader,
   CardBody,
   Image,
-  Avatar,
-  Divider,
+  User,
   CardFooter,
-  RadioGroup,
-  Radio,
-  cn,
-  Progress,
+  Chip,
+  Spacer,
+  Textarea,
 } from "@nextui-org/react";
-import { useState, useEffect } from "react";
+
+import { CheckIcon } from "./CheckIcon";
 
 interface Props {
   id?: string;
@@ -27,48 +25,22 @@ interface Props {
 }
 
 const Topics = (props: Props) => {
-
-  const [count, setCount] =useState(props.options.reduce((acc,item) => acc + item.value,0));
-
-  const [selectedChoice, setSelectedChoice] = useState("");
-
-  const [isVote, setIsVote] = useState(false);
-  const [record, setRecord] = useState<Record>();
-  const [options, setOptions] = useState<typeof props.options>(props.options);
-
-  const { userId } = useAuth();
-
-  useEffect(() => {
-    const fetchIsVote = async () => {
-      const result = await fetch(
-        `${process.env.API_ADDRESS}/topic/record?userId=${userId}&topicId=${props.id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (result.status === 200) {
-        setIsVote(true);
-        const data = await result.json();
-        const record = data.record as Record;
-        setRecord(record);
-        setSelectedChoice(record.choice);
-      }
-    };
-    fetchIsVote();
-  }, [props.id, userId]);
+  // const { userId } = useAuth();
+  const fullName = useUser().user?.fullName;
 
   return (
     <div className="w-10/12 ">
       <Card>
-        <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-          <Avatar src={props.avatar} />
-          <h4 className="text-lg font-bold">{props.userId}</h4>
-          <p className="text-tiny font-semibold">{props.content}</p>
+        <CardHeader className="pb-0 pt-2 px-4 flex-row items-start">
+          <User
+            name={fullName}
+            // description="Product Designer"
+            avatarProps={{
+              src: props.avatar,
+            }}
+          />
         </CardHeader>
-        <CardBody className="overflow-visible py-2">
+        <CardBody className="overflow-visible py-2 px-6">
           {props.images &&
             props.images.map((item, index) => (
               <Image
@@ -76,90 +48,39 @@ const Topics = (props: Props) => {
                 alt="Card Image"
                 className="rounded-xl my-1 object-cover"
                 src={item}
-                width={400}
+                // width={400}
               />
             ))}
+          <Spacer y={3} />
+          {/* <p className="text-tiny font-semibold">{props.content}</p> */}
+          <Textarea
+            isReadOnly
+            // label="Description"
+            variant="bordered"
+            // labelPlacement="outside"
+            // placeholder="Enter your description"
+            defaultValue={props.content}
+            minRows={1}
+            className="w-full"
+          />
         </CardBody>
         <CardFooter className="px-4 py-2 flex flex-col justify-center">
-          <RadioGroup
-            orientation="horizontal"
-            value={selectedChoice}
-            onValueChange={async (value) => {
-              const newOptions = options?.map(item => {
-                if (item.key === value) {
-                  return {
-                    key: item.key,
-                    value: item.value + 1,
-                  }
-                }
-                if (item.key === selectedChoice) {
-                  return {
-                    key: item.key,
-                    value: item.value - 1,
-                  }
-                }
-                return item
-              });
-              setOptions(newOptions);
-              if (selectedChoice === "") {
-                setCount(count + 1);
-              }
-              setSelectedChoice(value);
-              const result = await fetch(`${process.env.API_ADDRESS}/topic/record`,{
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  userId,
-                  topicId: props.id,
-                  choice: value,
-                }),
-              });
-              if (result.status === 200) {
-                setIsVote(true);                
-              };
-            }}
-          >
-            {props.options.map((item) => {
+          <div className="flex gap-2">
+            {props.options.map((item, index) => {
               return (
-                <Radio
-                  key={item.key}
-                  value={item.key}
-                  className={cn(
-                    "inline-flex m-0 bg-content1 hover:bg-content2 items-center justify-between",
-                    "flex-row-reverse max-w-[200px] cursor-pointer rounded-lg gap-4 p-4 border-2 border-transparent",
-                    "data-[selected=true]:border-primary"
-                  )}
+                <Chip
+                  key={index}
+                  variant="flat"
+                  startContent={<CheckIcon size={18} />}
                 >
                   {item.key}
-                </Radio>
+                </Chip>
               );
             })}
-          </RadioGroup>
-          {isVote &&
-            options?.map((item) => {
-              return (
-                <Progress
-                key={item.key}
-                  size="sm"
-                  radius="sm"
-                  classNames={{
-                    base: "max-w-md",
-                    track: "drop-shadow-md border border-default",
-                    indicator: "bg-gradient-to-r from-pink-500 to-yellow-500",
-                    label: "tracking-wider font-medium text-default-600",
-                    value: "text-foreground/60",
-                  }}
-                  label={item.key}
-                  value={count === 0 ? 0: (item.value / count * 100)}
-                  showValueLabel={true}
-                />
-              );
-            })}
+          </div>
         </CardFooter>
       </Card>
-      <Divider className="my-5" />
+      <Spacer y={10} />
     </div>
   );
 };

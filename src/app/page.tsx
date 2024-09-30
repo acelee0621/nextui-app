@@ -11,7 +11,9 @@ import {
   useDisclosure,
   Input,
   Chip,
-  Divider,
+  Navbar,
+  NavbarItem,
+  NavbarContent,
 } from "@nextui-org/react";
 import { ThemeSwitcher } from "./components/ThemeSwitcher";
 import { useAuth, UserButton, useUser } from "@clerk/nextjs";
@@ -32,9 +34,8 @@ export default function Home() {
   const [topics, setTopics] = useState<Topic[]>([]);
 
   const { userId } = useAuth();
-  const avatar = useUser().user?.imageUrl;
-
-  
+  const avatar = useUser().user?.imageUrl;  
+  console.log(avatar);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,21 +50,30 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <header className="w-full h-14 ">
-        <div className="fixed top-4 right-8 flex justify-stretch items-center">
+    <div>      
+      <Navbar>
+        <NavbarContent className="fixed right-8 flex justify-stretch items-center">
+        <NavbarItem>
           <Button color="success" endContent={<Send />} onPress={onOpen}>
             Post
           </Button>
-          <Spacer x={4} />
-          <UserButton />
-          <Spacer x={4} />
+        </NavbarItem>
+        <NavbarItem>
+          <UserButton appearance={{
+              elements: {
+                userButtonAvatarBox: 'w-10 h-10 mt-2',
+              },
+            }}
+            />
+        </NavbarItem>
+        <NavbarItem className="mt-1">
           <ThemeSwitcher />
-        </div>
-      </header>
+        </NavbarItem>
+        </NavbarContent>
+      </Navbar>
       <div className="flex justify-center items-center m-4">
         <main className="flex flex-col items-center justify-center w-full border-x-2 sm:w-full md:w-9/12 lg:w-6/12">
-          <Divider className="my-5" />          
+          <Spacer y={4} />
           {topics &&
             topics.map((item) => {
               return <Topics {...item} key={item.id} />;
