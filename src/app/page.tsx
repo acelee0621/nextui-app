@@ -23,8 +23,6 @@ import { CldUploadButton } from "next-cloudinary";
 import { Topic } from "@/util/type";
 import Topics from "./components/Topics";
 
-
-
 export default function Home() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [content, setContent] = useState("");
@@ -34,26 +32,30 @@ export default function Home() {
 
   const [topics, setTopics] = useState<Topic[]>([]);
 
-  
-  // const avatar = useUser().user?.imageUrl;  
-  
-
+  // const avatar = useUser().user?.imageUrl;
   const { isLoaded, isSignedIn, user } = useUser();
-  if(isLoaded && isSignedIn) {
-    fetch(process.env.API_ADDRESS + "/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: user?.id,
-        username:user?.username,
-        avatar: user?.imageUrl,
-        fullName: user?.fullName
-      }),      
-    });    
-  }
-  
+
+  const storeToDatabase = async () => {
+    if (isLoaded && isSignedIn) {
+      const result = await fetch(process.env.API_ADDRESS + "/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: user?.id,
+          username: user?.username,
+          avatar: user?.imageUrl,
+          fullName: user?.fullName,
+        }),
+      });
+      await result.json();
+    }
+  };
+
+  useEffect(() => {
+    storeToDatabase();
+  }, [user]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,25 +70,26 @@ export default function Home() {
   }, []);
 
   return (
-    <div>      
+    <div>
       <Navbar>
         <NavbarContent className="fixed right-8 flex justify-stretch items-center">
-        <NavbarItem>
-          <Button color="success" endContent={<Send />} onPress={onOpen}>
-            Post
-          </Button>
-        </NavbarItem>
-        <NavbarItem className="mt-2">
-          <UserButton appearance={{
-              elements: {
-                userButtonAvatarBox: 'w-10 h-10',               
-              },
-            }}
+          <NavbarItem>
+            <Button color="success" endContent={<Send />} onPress={onOpen}>
+              Post
+            </Button>
+          </NavbarItem>
+          <NavbarItem className="mt-2">
+            <UserButton
+              appearance={{
+                elements: {
+                  userButtonAvatarBox: "w-10 h-10",
+                },
+              }}
             />
-        </NavbarItem>
-        <NavbarItem className="mt-1">
-          <ThemeSwitcher />
-        </NavbarItem>
+          </NavbarItem>
+          <NavbarItem className="mt-1">
+            <ThemeSwitcher />
+          </NavbarItem>
         </NavbarContent>
       </Navbar>
       <div className="flex justify-center items-center m-4">
@@ -181,10 +184,10 @@ export default function Home() {
                         headers: {
                           "Content-Type": "application/json",
                         },
-                        body: JSON.stringify({                          
-                          username:user?.username,
-                          fullName:user?.fullName,
-                          avatar:user?.imageUrl,
+                        body: JSON.stringify({
+                          username: user?.username,
+                          fullName: user?.fullName,
+                          avatar: user?.imageUrl,
                           content,
                           images,
                           options,
