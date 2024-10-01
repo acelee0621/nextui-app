@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 interface TopicRequest {
-    userId: string;
+    fullName: string;
     avatar: string;
     content: string;
     images: string[];
@@ -34,15 +34,14 @@ export async function POST(request: NextRequest) {
         const data = (await request.json()) as TopicRequest;
 
         const topic = await prisma.topic.create({
-            data: {
-                userId: data.userId,
+            data: {                
+                fullName: data.fullName,
                 avatar: data.avatar,
                 content: data.content,
                 images: data.images,
                 options: {
                     create: data.options.map((item) => ({
-                        key: item,
-                        value: 0,
+                        key: item,                                                
                     })),
                 },
             },

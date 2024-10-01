@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth, useUser } from "@clerk/nextjs";
 import {
   Card,
   CardHeader,
@@ -18,22 +17,21 @@ import { CheckIcon } from "./CheckIcon";
 interface Props {
   id?: string;
   userId?: string;
+  fullName?: string;
   avatar?: string;
   content?: string;
   images?: string[];
-  options?: Array<{ key: string; value: number }>;
+  options?: Array<{ key: string;}>;
 }
 
-const Topics = (props: Props) => {
-  // const { userId } = useAuth();
-  const fullName = useUser().user?.fullName;
+const Topics = (props: Props) => {  
 
   return (
     <div className="w-10/12 ">
       <Card>
         <CardHeader className="pb-0 pt-2 px-4 flex-row items-start">
           <User
-            name={fullName}
+            name={props.fullName}
             // description="Product Designer"
             avatarProps={{
               src: props.avatar,

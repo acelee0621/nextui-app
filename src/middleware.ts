@@ -7,17 +7,17 @@ export default clerkMiddleware(async function (auth, req) {
   if (!auth().userId && isProtectedRoute(req)) {
     // Add custom logic to run before redirecting
     return auth().redirectToSignIn();
-  }
-  const result = await fetch(process.env.API_ADDRESS + "/user", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      userId: auth().userId,
-    }),
-  });
-  await result.json();
+  }     
+  // const result = await fetch(process.env.API_ADDRESS + "/user", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({
+  //     userId: auth().userId,      
+  //   }),
+  // });
+  // await result.json();
 });
 
 export const config = {

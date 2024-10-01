@@ -16,12 +16,13 @@ import {
   NavbarContent,
 } from "@nextui-org/react";
 import { ThemeSwitcher } from "./components/ThemeSwitcher";
-import { useAuth, UserButton, useUser } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { FileUp, Send } from "lucide-react";
 import { useEffect, useState } from "react";
 import { CldUploadButton } from "next-cloudinary";
 import { Topic } from "@/util/type";
 import Topics from "./components/Topics";
+
 
 
 export default function Home() {
@@ -33,9 +34,26 @@ export default function Home() {
 
   const [topics, setTopics] = useState<Topic[]>([]);
 
-  const { userId } = useAuth();
-  const avatar = useUser().user?.imageUrl;  
-  console.log(avatar);
+  
+  // const avatar = useUser().user?.imageUrl;  
+  
+
+  const { isLoaded, isSignedIn, user } = useUser();
+  if(isLoaded && isSignedIn) {
+    fetch(process.env.API_ADDRESS + "/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: user?.id,
+        username:user?.username,
+        avatar: user?.imageUrl,
+        fullName: user?.fullName
+      }),      
+    });    
+  }
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,10 +76,10 @@ export default function Home() {
             Post
           </Button>
         </NavbarItem>
-        <NavbarItem>
+        <NavbarItem className="mt-2">
           <UserButton appearance={{
               elements: {
-                userButtonAvatarBox: 'w-10 h-10 mt-2',
+                userButtonAvatarBox: 'w-10 h-10',               
               },
             }}
             />
@@ -163,9 +181,10 @@ export default function Home() {
                         headers: {
                           "Content-Type": "application/json",
                         },
-                        body: JSON.stringify({
-                          userId,
-                          avatar,
+                        body: JSON.stringify({                          
+                          username:user?.username,
+                          fullName:user?.fullName,
+                          avatar:user?.imageUrl,
                           content,
                           images,
                           options,
