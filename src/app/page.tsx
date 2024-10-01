@@ -135,7 +135,7 @@ export default function Home() {
                 <Spacer x={2} />
                 <div className="flex items-center">
                   <Input
-                    label={"Options"}
+                    label={"Tags"}
                     variant={"faded"}
                     size="sm"
                     value={currentOption}
@@ -149,7 +149,7 @@ export default function Home() {
                       setCurrentOption("");
                     }}
                   >
-                    Add Option
+                    Add Tags
                   </Button>
                 </div>
                 <Spacer x={2} />

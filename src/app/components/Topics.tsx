@@ -64,7 +64,7 @@ const Topics = (props: Props) => {
         </CardBody>
         <CardFooter className="px-4 py-2 flex flex-col justify-center">
           <div className="flex gap-2">
-            {props.options.map((item, index) => {
+            {props.options?.map((item, index) => {
               return (
                 <Chip
                   key={index}

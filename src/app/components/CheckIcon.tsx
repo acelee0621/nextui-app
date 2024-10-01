@@ -1,9 +1,16 @@
+
+interface Size {
+  size: number;
+  height?: number;
+  width?: number;
+}
+
 export const CheckIcon = ({
     size,
     height,
     width,
     ...props
-  }) => {
+  }:Size) => {
     return (
       <svg
         width={size || width || 24}
