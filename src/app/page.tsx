@@ -55,7 +55,7 @@ export default function Home() {
 
   useEffect(() => {
     storeToDatabase();
-  }, [user]);
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,7 +72,7 @@ export default function Home() {
   return (
     <div>
       <Navbar>
-        <NavbarContent className="fixed right-8 flex justify-stretch items-center">
+        <NavbarContent className="fixed right-8 flex items-center justify-stretch">
           <NavbarItem>
             <Button color="success" endContent={<Send />} onPress={onOpen}>
               Post
@@ -92,8 +92,8 @@ export default function Home() {
           </NavbarItem>
         </NavbarContent>
       </Navbar>
-      <div className="flex justify-center items-center m-4">
-        <main className="flex flex-col items-center justify-center w-full border-x-2 sm:w-full md:w-9/12 lg:w-6/12">
+      <div className="m-4 flex items-center justify-center">
+        <main className="flex w-full flex-col items-center justify-center border-x-2 sm:w-full md:w-9/12 lg:w-6/12">
           <Spacer y={4} />
           {topics &&
             topics.map((item) => {
@@ -125,8 +125,8 @@ export default function Home() {
                     setImages([...images, result.info.url]);
                   }}
                 >
-                  <button className="bg-secondary-500 hover:bg-secondary-700 text-white font-bold py-2 px-4 rounded-md">
-                    <div className="flex ">
+                  <button className="rounded-md bg-secondary-500 px-4 py-2 font-bold text-white hover:bg-secondary-700">
+                    <div className="flex">
                       <FileUp />
                       <span>Upload Image</span>
                     </div>
@@ -158,7 +158,7 @@ export default function Home() {
                     return (
                       <Chip
                         key={index}
-                        onClose={(event) => {
+                        onClose={() => {
                           setOptions(options.filter((i) => i !== item));
                         }}
                         variant="flat"
@@ -192,7 +192,7 @@ export default function Home() {
                           images,
                           options,
                         }),
-                      }
+                      },
                     );
                     const data = (await result.json()) as Topic;
                     setTopics([...topics, data]);

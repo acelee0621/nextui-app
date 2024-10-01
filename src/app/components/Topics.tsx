@@ -21,15 +21,14 @@ interface Props {
   avatar?: string;
   content?: string;
   images?: string[];
-  options?: Array<{ key: string;}>;
+  options?: Array<{ key: string }>;
 }
 
-const Topics = (props: Props) => {  
-
+const Topics = (props: Props) => {
   return (
-    <div className="w-10/12 ">
+    <div className="w-10/12">
       <Card>
-        <CardHeader className="pb-0 pt-2 px-4 flex-row items-start">
+        <CardHeader className="flex-row items-start px-4 pb-0 pt-2">
           <User
             name={props.fullName}
             // description="Product Designer"
@@ -38,13 +37,13 @@ const Topics = (props: Props) => {
             }}
           />
         </CardHeader>
-        <CardBody className="overflow-visible py-2 px-6">
+        <CardBody className="overflow-visible px-6 py-2">
           {props.images &&
             props.images.map((item, index) => (
               <Image
                 key={index}
                 alt="Card Image"
-                className="rounded-xl my-1 object-cover"
+                className="my-1 rounded-xl object-cover"
                 src={item}
                 // width={400}
               />
@@ -62,7 +61,7 @@ const Topics = (props: Props) => {
             className="w-full"
           />
         </CardBody>
-        <CardFooter className="px-4 py-2 flex flex-col justify-center">
+        <CardFooter className="flex flex-col justify-center px-4 py-2">
           <div className="flex gap-2">
             {props.options?.map((item, index) => {
               return (
